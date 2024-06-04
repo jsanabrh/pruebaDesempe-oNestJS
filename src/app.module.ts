@@ -9,6 +9,10 @@ import { TournamentsModule } from './tournaments/tournaments.module';
 import { TournamentEntity } from './tournaments/entities/tournament.entity';
 import { TournamentController } from './tournaments/controller/tournament.controller';
 import { TournamentService } from './tournaments/service/tournament.service';
+import { ResultsModule } from './results/results.module';
+import { ResultEntity } from './results/entities/result.entity';
+import { ResultController } from './results/controller/result.controller';
+import { ResultService } from './results/service/result.service';
 
 @Module({
   imports: [
@@ -25,17 +29,18 @@ import { TournamentService } from './tournaments/service/tournament.service';
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [PlayerEntity, TournamentEntity],
+      entities: [PlayerEntity, TournamentEntity, ResultEntity],
       extra: {
         ssl: true,
       },
     }),
-    TypeOrmModule.forFeature([PlayerEntity, TournamentEntity]),
+    TypeOrmModule.forFeature([PlayerEntity, TournamentEntity, ResultEntity]),
     PlayersModule,
     TournamentsModule,
+    ResultsModule,
   ],
 
-  controllers: [PlayerController, TournamentController],
-  providers: [PlayerService, TournamentService],
+  controllers: [PlayerController, TournamentController, ResultController],
+  providers: [PlayerService, TournamentService, ResultService],
 })
 export class AppModule {}
