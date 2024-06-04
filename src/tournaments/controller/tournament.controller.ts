@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { TournamentService } from '../service/tournament.service';
 import { CreateTournamentDto } from '../dto/createTournament.dto';
@@ -14,5 +14,21 @@ export class TournamentController {
     @Body() createTournament: CreateTournamentDto,
   ): Promise<TournamentEntity> {
     return this.tournamentService.createTournament(createTournament);
+  }
+
+  @Get('findAllTournament')
+  async findAllTournaments() {
+    return this.tournamentService.findAllTournament();
+  }
+
+  @Put('/updateTournament:idTournament')
+  async updateUser(
+    @Param('idTournament') idTournament: number,
+    @Body() updateTournament: CreateTournamentDto,
+  ) {
+    return this.tournamentService.updateTournament(
+      idTournament,
+      updateTournament,
+    );
   }
 }
