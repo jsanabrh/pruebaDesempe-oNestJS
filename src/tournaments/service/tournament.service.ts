@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TournamentEntity } from '../entities/tournament.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { CreateTournamentDto } from '../dto/createTournament.dto';
 import { UpdateTournamentDto } from '../dto/updateTournament.dto';
+import { FilterTournamentDto } from '../dto/filterTournamet.dto';
 
 @Injectable()
 export class TournamentService {
@@ -21,6 +22,25 @@ export class TournamentService {
   async findAllTournament() {
     return await this.tournamentRepository.find({
       relations: ['players'],
+    });
+  }
+
+  async findAllTournamentFilter({
+    limit,
+    offset,
+    search,
+    sortBy,
+    order,
+  }: FilterTournamentDto): Promise<TournamentEntity[]> {
+    return await this.tournamentRepository.find({
+      where: {
+        nameTournament: ILike(`%${search}%`),
+      },
+      order: {
+        [sortBy]: order,
+      },
+      skip: offset,
+      take: limit,
     });
   }
 
