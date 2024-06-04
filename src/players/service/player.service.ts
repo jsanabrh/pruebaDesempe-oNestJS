@@ -4,15 +4,32 @@ import { PlayerEntity } from '../entities/player.entity';
 import { Repository } from 'typeorm';
 import { CreatePlayerDto } from '../dto/createPlayer.dto';
 import { UpdatePlayerDto } from '../dto/updatePlayer.dto';
+import { TournamentEntity } from 'src/tournaments/entities/tournament.entity';
 
 @Injectable()
 export class PlayerService {
   constructor(
     @InjectRepository(PlayerEntity)
     private readonly playerRepository: Repository<PlayerEntity>,
+    @InjectRepository(TournamentEntity)
+    private readonly tournamentRepository: Repository<TournamentEntity>,
   ) {}
-  async createPlayer(createPlayer: CreatePlayerDto): Promise<PlayerEntity> {
-    const player = this.playerRepository.create(createPlayer);
+  async createTournametPlayer(
+    createPlayer: CreatePlayerDto,
+  ): Promise<PlayerEntity> {
+    const { idTournament, ...playerData } = createPlayer;
+    const tournament = await this.tournamentRepository.findOne({
+      where: { idTournament },
+    });
+
+    if (!tournament) {
+      throw new NotFoundException('Tournament not found');
+    }
+    const player = this.playerRepository.create({
+      ...playerData,
+      idTournament: tournament.idTournament,
+      tournament: tournament,
+    });
     return await this.playerRepository.save(player);
   }
 

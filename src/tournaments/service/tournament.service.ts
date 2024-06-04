@@ -19,7 +19,9 @@ export class TournamentService {
   }
 
   async findAllTournament() {
-    return await this.tournamentRepository.find();
+    return await this.tournamentRepository.find({
+      relations: ['players'],
+    });
   }
 
   async updateTournament(

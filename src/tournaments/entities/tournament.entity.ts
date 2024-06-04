@@ -1,7 +1,9 @@
+import { PlayerEntity } from 'src/players/entities/player.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -15,4 +17,7 @@ export class TournamentEntity {
 
   @CreateDateColumn()
   createdAt?: Date;
+
+  @OneToMany(() => PlayerEntity, (player) => player.tournament)
+  players: PlayerEntity[];
 }
