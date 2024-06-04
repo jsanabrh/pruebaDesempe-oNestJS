@@ -5,6 +5,14 @@ import { PlayersModule } from './players/players.module';
 import { PlayerEntity } from './players/entities/player.entity';
 import { PlayerController } from './players/controller/player.controller';
 import { PlayerService } from './players/service/player.service';
+import { TournamentsModule } from './tournaments/tournaments.module';
+import { TournamentEntity } from './tournaments/entities/tournament.entity';
+import { TournamentController } from './tournaments/controller/tournament.controller';
+import { TournamentService } from './tournaments/service/tournament.service';
+import { ResultsModule } from './results/results.module';
+import { ResultEntity } from './results/entities/result.entity';
+import { ResultController } from './results/controller/result.controller';
+import { ResultService } from './results/service/result.service';
 
 @Module({
   imports: [
@@ -21,16 +29,18 @@ import { PlayerService } from './players/service/player.service';
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [PlayerEntity],
+      entities: [PlayerEntity, TournamentEntity, ResultEntity],
       extra: {
         ssl: true,
       },
     }),
-    TypeOrmModule.forFeature([PlayerEntity]),
+    TypeOrmModule.forFeature([PlayerEntity, TournamentEntity, ResultEntity]),
     PlayersModule,
+    TournamentsModule,
+    ResultsModule,
   ],
 
-  controllers: [PlayerController],
-  providers: [PlayerService],
+  controllers: [PlayerController, TournamentController, ResultController],
+  providers: [PlayerService, TournamentService, ResultService],
 })
 export class AppModule {}
