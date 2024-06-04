@@ -8,7 +8,7 @@ import {
 @Entity()
 export class ResultEntity {
   @PrimaryGeneratedColumn()
-  idTournament: number;
+  idResult: number;
 
   @Column()
   points: number;

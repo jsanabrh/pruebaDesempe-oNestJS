@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PlayerService } from '../service/player.service';
 import { CreatePlayerDto } from '../dto/createPlayer.dto';
 import { PlayerEntity } from '../entities/player.entity';
+import { FilterDto } from '../dto/filters.dto';
 
 @ApiTags('Players')
 @Controller('player')
@@ -38,7 +39,12 @@ export class PlayerController {
     description:
       'An internal server error occurred while searching for the players.',
   })
-  @Get('findAllPlayers')
+  @Get('findAllPlayersFilter')
+  async findAllPlayersFilter(@Query() filter: FilterDto) {
+    return this.playerService.findAllPlayerFilter(filter);
+  }
+
+  @Get('findAllPlayer')
   async findAllPlayers() {
     return this.playerService.findAllPlayer();
   }

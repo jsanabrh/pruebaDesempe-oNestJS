@@ -6,11 +6,13 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TournamentService } from '../service/tournament.service';
 import { CreateTournamentDto } from '../dto/createTournament.dto';
 import { TournamentEntity } from '../entities/tournament.entity';
+import { FilterTournamentDto } from '../dto/filterTournamet.dto';
 
 @ApiTags('Tournaments')
 @Controller('tournament')
@@ -50,6 +52,11 @@ export class TournamentController {
   @Get('findAllTournament')
   async findAllTournaments() {
     return this.tournamentService.findAllTournament();
+  }
+
+  @Get('findAllTournamentFilter')
+  async findAllTournamentFilter(@Query() filter: FilterTournamentDto) {
+    return this.tournamentService.findAllTournamentFilter(filter);
   }
 
   @ApiResponse({ status: 200, description: 'Tournament updated successfully.' })
