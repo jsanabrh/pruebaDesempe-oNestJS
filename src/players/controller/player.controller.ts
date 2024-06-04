@@ -65,4 +65,17 @@ export class PlayerController {
   ) {
     return this.playerService.updatePlayer(idPlayer, updatePlayer);
   }
+
+  @Get()
+  async getAllPlayersWithResults() {
+    return this.playerService.getAllPlayersWithResults();
+  }
+
+  @Post(':id/assign-points')
+  async assignPointsToPlayer(
+    @Param('id') playerId: number,
+    @Body('points') points: number,
+  ): Promise<void> {
+    await this.playerService.assignPointsToPlayer(playerId, points);
+  }
 }

@@ -6,6 +6,7 @@ import { CreatePlayerDto } from '../dto/createPlayer.dto';
 import { UpdatePlayerDto } from '../dto/updatePlayer.dto';
 import { TournamentEntity } from 'src/tournaments/entities/tournament.entity';
 import { FilterDto } from '../dto/filters.dto';
+import { ResultEntity } from 'src/results/entities/result.entity';
 
 @Injectable()
 export class PlayerService {
@@ -14,6 +15,8 @@ export class PlayerService {
     private readonly playerRepository: Repository<PlayerEntity>,
     @InjectRepository(TournamentEntity)
     private readonly tournamentRepository: Repository<TournamentEntity>,
+    @InjectRepository(ResultEntity)
+    private readonly resultsRepository: Repository<ResultEntity>,
   ) {}
   async createTournametPlayer(
     createPlayer: CreatePlayerDto,
@@ -35,7 +38,9 @@ export class PlayerService {
   }
 
   async findAllPlayer() {
-    return await this.playerRepository.find();
+    return await this.playerRepository.find({
+      relations: ['result'],
+    });
   }
 
   async findAllPlayerFilter({
@@ -57,6 +62,25 @@ export class PlayerService {
     });
   }
 
+  async savePlayerWithResult(
+    name: string,
+    lastName: string,
+    team: string,
+    points: number,
+  ): Promise<void> {
+    const player = new PlayerEntity();
+    player.namePlayer = name;
+    player.lastNamePlayer = lastName;
+    player.teamPlayer = team;
+
+    const result = new ResultEntity();
+    result.points = points;
+
+    player.result = result;
+
+    await this.playerRepository.save(player);
+  }
+
   async updatePlayer(
     idPlayer: number,
     updatePlayer: UpdatePlayerDto,
@@ -72,5 +96,23 @@ export class PlayerService {
     });
 
     return await updatePlayerData;
+  }
+
+  async getAllPlayersWithResults() {
+    return this.playerRepository.find({ relations: ['result'] });
+  }
+
+  async assignPointsToPlayer(idPlayer: number, points: number): Promise<void> {
+    const player = await this.playerRepository.findOne({ where: { idPlayer } });
+    if (!player) {
+      throw new Error('Player not found');
+    }
+
+    const result = new ResultEntity();
+    result.points = points; // Asegúrate de asignar un valor a 'points'
+    await this.resultsRepository.save(result);
+
+    player.result = result;
+    await this.playerRepository.save(player);
   }
 }
