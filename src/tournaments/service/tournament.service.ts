@@ -40,4 +40,12 @@ export class TournamentService {
 
     return await updateTournamentData;
   }
+
+  async removeTournament(idTournament: number) {
+    const tournament = await this.tournamentRepository.delete({ idTournament });
+    if (!idTournament) {
+      throw new NotFoundException('Tournament not found');
+    }
+    return tournament;
+  }
 }
