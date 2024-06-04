@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "6c60f531-145a-4e17-8c6d-993a927c9842",
+		"name": "PruebaDesempeño",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27908230"
+	},
+	"item": [
+		{
+			"name": "Players",
+			"item": [
+				{
+					"name": "createPlayer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idPlayer\": 5555,\n  \"namePlayer\": \"Stiven\",\n  \"lastNamePlayer\": \"Loaiza\",\n  \"teamPlayer\": \"C9\",\n  \"idTournament\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/player/createPlayer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"createPlayer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter&pagination",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "finAllPlayers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/player/findAllPlayer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"findAllPlayer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePlayer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idPlayer\": 0,\n  \"namePlayer\": \"string\",\n  \"lastNamePlayer\": \"string\",\n  \"teamPlayer\": \"string\",\n  \"idTournament\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/player/updatePlayer/idPlayer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"updatePlayer",
+								"idPlayer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tournament",
+			"item": [
+				{
+					"name": "createTournament",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nameTournament\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tournament/createTournament",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tournament",
+								"createTournament"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllTournaments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/tournament/findAllTournament",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tournament",
+								"findAllTournament"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter & pagination",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "search",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "sortBy",
+								"value": "nameTournament",
+								"type": "text"
+							},
+							{
+								"key": "order",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "limit",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "offset",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tournament/findAllTournamentFilter",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tournament",
+								"findAllTournamentFilter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTournament",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nameTournament\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tournament/updateTournament{idTournament}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tournament",
+								"updateTournament{idTournament}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTournament",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/tournament/deleteTournament/{idTournament}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tournament",
+								"deleteTournament",
+								"{idTournament}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
