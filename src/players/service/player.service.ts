@@ -14,4 +14,8 @@ export class PlayerService {
     const player = this.playerRepository.create(createPlayer);
     return await this.playerRepository.save(player);
   }
+
+  async findAllPlayer() {
+    return await this.playerRepository.find();
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { PlayerService } from '../service/player.service';
 import { CreatePlayerDto } from '../dto/createPlayer.dto';
@@ -14,5 +14,10 @@ export class PlayerController {
     @Body() createPlayer: CreatePlayerDto,
   ): Promise<PlayerEntity> {
     return this.playerService.createPlayer(createPlayer);
+  }
+
+  @Get('findAllPlayers')
+  async findAllPlayers() {
+    return this.playerService.findAllPlayer();
   }
 }
