@@ -21,4 +21,9 @@ export class CreatePlayerDto {
   @IsString()
   @IsNotEmpty()
   teamPlayer: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  idTournament: number;
 }

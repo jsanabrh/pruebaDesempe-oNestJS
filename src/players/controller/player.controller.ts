@@ -13,7 +13,7 @@ export class PlayerController {
   async createPlayer(
     @Body() createPlayer: CreatePlayerDto,
   ): Promise<PlayerEntity> {
-    return this.playerService.createPlayer(createPlayer);
+    return this.playerService.createTournametPlayer(createPlayer);
   }
 
   @Get('findAllPlayers')
