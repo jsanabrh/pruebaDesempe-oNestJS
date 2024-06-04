@@ -5,6 +5,7 @@ import { PlayersModule } from './players/players.module';
 import { PlayerEntity } from './players/entities/player.entity';
 import { PlayerController } from './players/controller/player.controller';
 import { PlayerService } from './players/service/player.service';
+import { TournamentsModule } from './tournaments/tournaments.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PlayerService } from './players/service/player.service';
     }),
     TypeOrmModule.forFeature([PlayerEntity]),
     PlayersModule,
+    TournamentsModule,
   ],
 
   controllers: [PlayerController],
